@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Cairo";
+    src: url("./assets/Fonts/Cairo/Cairo-VariableFont_slnt,wght.ttf") format("truetype");
+    font-weight: 100 900;
+    /* because variable font */
+    font-style: normal;
+}
+
+body {
+    font-family: "Cairo", sans-serif;
+}
+
+* {
+    font-family: "Cairo", sans-serif;
+}
+
+.drag {
+    -webkit-app-region: drag;
+}
+
+.no-drag {
+    -webkit-app-region: no-drag;
+}
