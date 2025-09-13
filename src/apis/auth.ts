@@ -1,16 +1,30 @@
+import axios from 'axios';
+
 const auth = {
-    signIn: (username: string, password: string) => {
-        // Sign in logic here
-        console.log(`Signing in with username: ${username} and password: ${password}`);
-        sessionStorage.setItem("username", username);
-        sessionStorage.setItem("token", username);
-        return true; // Return true if sign-in is successful
+    signIn: async (username: string, password: string) => {
+        try {
+            const response = await axios.post("http://localhost:9090/api/login", null, {
+                params: {
+                    username,
+                    password
+                }
+            });
+            const data = response.data;
+            console.log(data);
+
+            if (data.token) {
+                sessionStorage.setItem("username", username);
+                sessionStorage.setItem("token", data.token);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error("Sign in error:", error);
+            return false;
+        }
     },
     checkSignIn: () => {
-        if (sessionStorage.getItem("token")) {
-            return true;
-        }
-        return false;
+        return !!sessionStorage.getItem("token");
     }
 }
 

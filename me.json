@@ -1,0 +1,115 @@
+{
+    "documents": [
+        {
+            "issuer": {
+                "address": {
+                    "branchID": "0",
+                    "country": "EG",
+                    "governate": "Cairo",
+                    "regionCity": "Nasr City",
+                    "street": "Gamal El Din Afifi",
+                    "buildingNumber": "11",
+                    "postalCode": "",
+                    "floor": "1",
+                    "room": "6",
+                    "landmark": "",
+                    "additionalInformation": "Apartment No. 6, First Floor, Building No. 11"
+                },
+                "type": "B",
+                "id": "479408556",
+                "name": "Issuer Company"
+            },
+            "receiver": {
+                "address": {
+                    "country": "EG",
+                    "governate": "Cairo",
+                    "regionCity": "Nasr City",
+                    "street": "Some Street",
+                    "buildingNumber": "0"
+                },
+                "type": "B",
+                "id": "332358003",
+                "name": "كوكاكولا"
+            },
+            "documentType": "I",
+            "documentTypeVersion": "1.0",
+            "dateTimeIssued": "2025-09-13T13:41:30Z",
+            "taxpayerActivityCode": "6920",
+            "internalID": "700013069",
+            "invoiceLines": [
+                {
+                    "description": "SapBusinessOneSupport",
+                    "itemType": "EGS",
+                    "itemCode": "EG-479408556-1",
+                    "unitType": "EA",
+                    "quantity": 1,
+                    "internalCode": "1",
+                    "salesTotal": 100,
+                    "total": 114,
+                    "valueDifference": 0,
+                    "totalTaxableFees": 0,
+                    "netTotal": 100,
+                    "itemsDiscount": 0,
+                    "unitValue": {
+                        "currencySold": "EGP",
+                        "amountEGP": 100
+                    },
+                    "discount": {
+                        "rate": 0,
+                        "amount": 0
+                    },
+                    "taxableItems": [
+                        {
+                            "taxType": "T1",
+                            "amount": 14,
+                            "subType": "V009",
+                            "rate": 14
+                        }
+                    ]
+                },
+                {
+                    "description": "SapBusinessOneSupport",
+                    "itemType": "EGS",
+                    "itemCode": "EG-479408556-1",
+                    "unitType": "EA",
+                    "quantity": 2,
+                    "internalCode": "1",
+                    "salesTotal": 200,
+                    "total": 228,
+                    "valueDifference": 0,
+                    "totalTaxableFees": 0,
+                    "netTotal": 200,
+                    "itemsDiscount": 0,
+                    "unitValue": {
+                        "currencySold": "EGP",
+                        "amountEGP": 100
+                    },
+                    "discount": {
+                        "rate": 0,
+                        "amount": 0
+                    },
+                    "taxableItems": [
+                        {
+                            "taxType": "T1",
+                            "amount": 28,
+                            "subType": "V009",
+                            "rate": 14
+                        }
+                    ]
+                }
+            ],
+            "totalDiscountAmount": 0,
+            "totalSalesAmount": 300,
+            "netAmount": 300,
+            "taxTotals": [
+                {
+                    "taxType": "T1",
+                    "amount": 42
+                }
+            ],
+            "totalAmount": 292,
+            "extraDiscountAmount": 50,
+            "totalItemsDiscountAmount": 0
+        }
+    ]
+}

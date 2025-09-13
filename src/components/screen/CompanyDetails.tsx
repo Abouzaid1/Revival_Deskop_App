@@ -20,12 +20,15 @@ const fields = [
 
 export default function CompanyDetails() {
     const [company, setCompany] = useState<any>(null);
+    const [editMode, setEditMode] = useState(false);
+    const [form, setForm] = useState<any>({});
+    const [saving, setSaving] = useState(false);
 
     useEffect(() => {
-        // Assume company data is stored as JSON string under 'companyData'
         const data = apis.getTheIssuerData();
         if (data) {
             setCompany(data);
+            setForm(data);
         }
     }, []);
 
@@ -37,20 +40,64 @@ export default function CompanyDetails() {
         );
     }
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const handleSave = async () => {
+        setSaving(true);
+        await apis.saveTheIssuerData(form);
+        setCompany(form);
+        setEditMode(false);
+        setSaving(false);
+    };
+
     return (
         <div className="w-full">
-            <div className="w-full bg-white rounded-xl shadow-lg p-8 mt-8">
-                <h1 className="text-2xl font-bold mb-8 text-gray-700">تفاصيل الشركة</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {fields.map(field => (
-                        <div key={field.name} className="flex flex-col gap-1 border-b pb-3 border-gray-100">
-                            <span className="text-gray-500 text-xs font-semibold">{field.label}</span>
-                            <span className="text-gray-800 text-base font-bold break-words">
-                                {company[field.name] || <span className="text-gray-300">—</span>}
-                            </span>
+            <div className="w-full bg-white rounded-xl p-8 mt-8">
+                <h1 className="text-2xl font-bold mb-8 text-gray-700 flex items-center justify-between">
+                    تفاصيل الشركة
+                    {!editMode && (
+                        <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-sm font-bold" onClick={() => setEditMode(true)}>
+                            تعديل
+                        </button>
+                    )}
+                </h1>
+                {editMode ? (
+                    <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={e => { e.preventDefault(); handleSave(); }}>
+                        {fields.map(field => (
+                            <div key={field.name} className="flex flex-col gap-1 border-b pb-3 border-gray-100">
+                                <label className="text-gray-500 text-xs font-semibold" htmlFor={field.name}>{field.label}</label>
+                                <input
+                                    id={field.name}
+                                    name={field.name}
+                                    value={form[field.name] || ''}
+                                    onChange={handleChange}
+                                    className="text-gray-800 text-base font-bold break-words border rounded px-2 py-1 bg-gray-50"
+                                />
+                            </div>
+                        ))}
+                        <div className="col-span-full flex gap-4 mt-4">
+                            <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-sm font-bold" disabled={saving}>
+                                {saving ? 'جاري الحفظ...' : 'حفظ'}
+                            </button>
+                            <button type="button" className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm font-bold" onClick={() => { setEditMode(false); setForm(company); }}>
+                                إلغاء
+                            </button>
                         </div>
-                    ))}
-                </div>
+                    </form>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {fields.map(field => (
+                            <div key={field.name} className="flex flex-col gap-1 border-b pb-3 border-gray-100">
+                                <span className="text-gray-500 text-xs font-semibold">{field.label}</span>
+                                <span className="text-gray-800 text-base font-bold break-words">
+                                    {company[field.name] || <span className="text-gray-300">—</span>}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

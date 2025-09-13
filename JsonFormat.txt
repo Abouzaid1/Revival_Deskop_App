@@ -1,0 +1,85 @@
+{
+    "documents": [
+        {
+            "issuer": {
+                "address": {
+                    "branchID": "0",
+                    "country": "EG",
+                    "governate": "Cairo",
+                    "regionCity": "Nasr City",
+                    "street": "Gamal El Din Afifi",
+                    "buildingNumber": "11",
+                    "postalCode": "",
+                    "floor": "1",
+                    "room": "6",
+                    "landmark": "",
+                    "additionalInformation": "Apartment No. 6, First Floor, Building No. 11"
+                },
+                "type": "B",
+                "id": "479408556",
+                "name": "Issuer Company"
+            },
+            "receiver": {
+                "address": {
+                    "country": "BillToState",
+                    "governate": "BillToCounty",
+                    "regionCity": "BillToCity",
+                    "street": "BillToStreet",
+                    "buildingNumber": "BillToBuilding"
+                },
+                "type": "U_Number",
+                "id": "FederalTaxID",
+                "name": "CardName"
+            },
+            "documentType": "I",
+            "documentTypeVersion": "1.0",
+            "dateTimeIssued": "UpdateDate",
+            "taxpayerActivityCode": "6920",
+            "internalID": "DocNum",
+            "invoiceLines": [
+                {
+                    "description": "ItemDescription",
+                    "itemType": "EGS",
+                    "itemCode": "U_etaxitmcod",
+                    "unitType": "EA",
+                    "quantity": Quantity,
+                    "internalCode": "ItemCode",
+                    "salesTotal":  DocumentLines.Quantity *  DocumentLines.UnitPrice,
+                    "total": GrossTotal,
+                    "valueDifference": 0.0,
+                    "totalTaxableFees": 0.0,
+                    "netTotal": LineTotal,
+                    "itemsDiscount": 0,
+                    "unitValue": {
+                        "currencySold": "EGP",
+                        "amountEGP": DocumentLines.UnitPrice
+                    },
+                    "discount": {
+                        "rate": DocumentLines.DiscountPercent,
+                        "amount": (  DocumentLines.Quantity *  DocumentLines.UnitPrice,) - DocumentLines.LineTotal
+                    },
+                    "taxableItems": [
+                        {
+                            "taxType": "T1",
+                            "amount":  DocumentLines.LineTotal * 0.14,
+                            "subType": "V009",
+                            "rate": 14.0
+                        }
+                    ]
+                }
+            ],
+            "totalDiscountAmount": sum of all invoiceLines.Discount.amount,
+            "totalSalesAmount":Sum of all invoiceLines.salesTotal ,
+            "netAmount": Sum of all Lines.netTotal,
+            "taxTotals": [
+                {
+                    "taxType": "T1",
+                    "amount": sum of all Lines.TaxableItems.amount
+                }
+            ],
+            "totalAmount": All invoiceLines.total - extraDiscountAmount ,
+            "extraDiscountAmount": TotalDiscount,
+            "totalItemsDiscountAmount": 0.0
+        }
+    ]
+}

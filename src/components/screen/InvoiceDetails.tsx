@@ -1,5 +1,4 @@
-
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import apis from '../../apis/main';
@@ -13,16 +12,18 @@ const statusColors: Record<string, string> = {
 
 
 export default function InvoiceDetails() {
-    const [invoiceData, setInvoiceData] = useState<any>(null);
+    const { id } = useParams();
     const navigate = useNavigate();
+    const [invoiceData, setInvoiceData] = useState<any>(null);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await apis.getInvoiceById("2");
+        async function fetchInvoice() {
+            if (!id) return;
+            const res = await apis.getInvoiceById(id);
             setInvoiceData(res);
-        };
-        fetchData();
-    }, []);
+        }
+        fetchInvoice();
+    }, [id]);
 
     if (!invoiceData) {
         return (
@@ -104,18 +105,7 @@ export default function InvoiceDetails() {
                 <span className="text-lg font-bold text-gray-700">الإجمالي الكلي</span>
                 <span className="text-2xl font-extrabold text-gray-700">{total.toLocaleString()} ج.م</span>
             </div>
-            <div className="flex justify-between items-center mt-6 mb-2">
-                <span className="text-lg font-bold text-gray-700">الإجمالي الكلي</span>
-                <span className="text-2xl font-extrabold text-gray-700">{total.toLocaleString()} ج.م</span>
-            </div>
-            <div className="flex justify-between items-center mt-6 mb-2">
-                <span className="text-lg font-bold text-gray-700">الإجمالي الكلي</span>
-                <span className="text-2xl font-extrabold text-gray-700">{total.toLocaleString()} ج.م</span>
-            </div>
-            <div className="flex justify-between items-center mt-6 mb-2">
-                <span className="text-lg font-bold text-gray-700">الإجمالي الكلي</span>
-                <span className="text-2xl font-extrabold text-gray-700">{total.toLocaleString()} ج.م</span>
-            </div>
+
 
             <div className="bg-blue-50 rounded-lg p-4 mt-6 text-sm text-gray-800">
                 <span className="font-bold">العنوان:</span> {invoiceData.AddressExtension?.BillToStreet || "-"}، {invoiceData.AddressExtension?.BillToCity || "-"}
