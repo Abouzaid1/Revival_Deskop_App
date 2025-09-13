@@ -9,14 +9,12 @@ const statusColors: Record<string, string> = {
     "مؤرشف": "bg-gray-200 text-gray-600",
 };
 
-const statusOptions = ["الكل", "غير مدفوع", "قيد الانتظار", "مدفوع", "مؤرشف"];
 
 export default function InvoicesTable({ invoices }: { invoices: any[] }) {
     const [search, setSearch] = useState("");
-    const [status, setStatus] = useState("الكل");
+    const [status] = useState("الكل");
     const [selected, setSelected] = useState<number[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [invoiceData, setInvoiceData] = useState<any[]>([]);
+    const [loading] = useState(false);
     const navigate = useNavigate();
     const handleInvoiceClick = (id: number) => {
         navigate(`/invoice/${id}`);

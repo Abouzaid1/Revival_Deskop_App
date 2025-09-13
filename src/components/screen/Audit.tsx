@@ -5,11 +5,17 @@ export default function Audit() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [results, setResults] = useState<any[]>([]);
-  // Use objects keyed by DocNum for per-invoice state
   const [resubmitLoading, setResubmitLoading] = useState<{ [docNum: string]: boolean }>({});
   const [resubmitError, setResubmitError] = useState<{ [docNum: string]: string | null }>({});
+  const [issuerMissing, setIssuerMissing] = useState(false);
 
   useEffect(() => {
+    const issuerData = localStorage.getItem("issuerData");
+    if (!issuerData) {
+      setIssuerMissing(true);
+      setLoading(false);
+      return;
+    }
     async function fetchData() {
       setLoading(true);
       setError("");
@@ -63,6 +69,13 @@ export default function Audit() {
     fetchData();
   }, []);
 
+  if (issuerMissing) {
+    return (
+      <div className="flex items-center justify-center h-96 w-full">
+        <div className="text-gray-600 text-center text-lg font-bold">يجب إدخال بيانات المُصدر أولاً</div>
+      </div>
+    );
+  }
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96 w-full">
