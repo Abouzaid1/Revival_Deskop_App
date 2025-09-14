@@ -130,7 +130,7 @@ const apis = {
                 totalSalesAmount: totalSales,
                 netAmount,
                 taxTotals: totalTax > 0 ? [{ taxType: "T1", amount: totalTax }] : [],
-                totalAmount,
+                totalAmount:totalAmount - trim(invoice.TotalDiscount || 0),
                 extraDiscountAmount: trim(invoice.TotalDiscount || 0),
                 totalItemsDiscountAmount: 0,
             };
